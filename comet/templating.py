@@ -27,7 +27,7 @@ def template_filter(name: str):
     return decorator
 
 
-def register_global(name: str, value: typing.Any):
+def register_template_global(name: str, value: typing.Any):
     templating_engine.env.globals[name] = value
 
 
