@@ -9,6 +9,7 @@ black = "*"
 [packages]
 starlette = "*"
 jinja2 = "*"
+aiofiles = "*"
 
 [requires]
 python_version = "3.8"

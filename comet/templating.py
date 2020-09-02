@@ -1,3 +1,5 @@
+import typing
+
 from starlette.templating import Jinja2Templates
 from starlette.responses import Response
 
@@ -25,8 +27,12 @@ def template_filter(name: str):
     return decorator
 
 
+def register_global(name: str, value: typing.Any):
+    templating_engine.env.globals[name] = value
+
+
 def render_template(
-    template_name: str, context: dict, status_code: int = 200, **kwargs
+    template_name: str, context: dict = None, status_code: int = 200, **kwargs
 ) -> Response:
     """
     Render a template from the 'templates' directory.
@@ -34,7 +40,9 @@ def render_template(
     The current request is automatically added to the context.
     """
 
-    context.update({"request": current_request})
+    if context is None:
+        context = {}
+    context.update({"request": current_request()})
 
     return templating_engine.TemplateResponse(
         template_name, context, status_code=status_code, **kwargs
