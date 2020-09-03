@@ -1,6 +1,7 @@
 from starlette.applications import Starlette, BaseHTTPMiddleware
 from starlette.staticfiles import StaticFiles
 from starlette.middleware import Middleware
+from starlette.config import Config
 
 from .global_state import GlobalStateMiddleware
 from .minification import install_html_minification_hooks
@@ -11,6 +12,9 @@ from .templating import register_template_global
 class Comet(Starlette):
     def __init__(self):
         super().__init__(middleware=[Middleware(GlobalStateMiddleware)])
+
+        self.config = Config(".env")
+        self.config.file_values.update(self.config._read_file(".env.secrets"))
 
     def setup_precomputation(self, precomp_package):
         self.precomputation = Precomputation(precomp_package)
