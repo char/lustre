@@ -15,12 +15,16 @@ class Database:
             # Therefore, we use aiopg so that we have dialect-agnostic results.
             url = url.replace(scheme="postgres+aiopg")
 
+        self.url = url
         self.database = DatabaseBackend(url)
         self.metadata = MetaData()
 
         class DatabaseModelMetaclass(orm.models.ModelMetaclass):
             def __new__(
-                cls: type, name: str, bases: typing.Sequence[type], attrs: dict,
+                cls: type,
+                name: str,
+                bases: typing.Sequence[type],
+                attrs: dict,
             ) -> type:
                 attrs["__database__"] = self.database
                 attrs["__metadata__"] = self.metadata
@@ -33,4 +37,3 @@ class Database:
             __abstract__ = True
 
         self.Model = DatabaseModel
-
