@@ -1,14 +1,16 @@
 import os.path
+import typing
 
 from starlette.applications import Starlette, BaseHTTPMiddleware
 from starlette.staticfiles import StaticFiles
 from starlette.middleware import Middleware
 
 from .global_state import GlobalStateMiddleware
-from .minification import install_html_minification_hooks
-from .precomputation import Precomputation
 from .templating import register_template_global
 from .config import Config
+from .database import Database, DatabaseURL
+from .precomputation import Precomputation
+from .minification import install_html_minification_hooks
 
 
 class Comet(Starlette):
@@ -20,7 +22,10 @@ class Comet(Starlette):
             if os.path.isfile(config_file):
                 self.config.file_values.update(self.config._read_file(config_file))
 
-    def setup_precomputation(self, precomp_package):
+    def setup_database(self, database_url: typing.Union[str, DatabaseURL]):
+        self.db = Database(database_url)
+
+    def setup_precomputation(self, precomp_package: str):
         self.precomputation = Precomputation(precomp_package)
         register_template_global("precomp", self.precomputation)
 
