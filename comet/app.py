@@ -1,3 +1,5 @@
+import os.path
+
 from starlette.applications import Starlette, BaseHTTPMiddleware
 from starlette.staticfiles import StaticFiles
 from starlette.middleware import Middleware
@@ -10,11 +12,13 @@ from .templating import register_template_global
 
 
 class Comet(Starlette):
-    def __init__(self):
+    def __init__(self, config_files=(".env", ".env.secrets")):
         super().__init__(middleware=[Middleware(GlobalStateMiddleware)])
 
-        self.config = Config(".env")
-        self.config.file_values.update(self.config._read_file(".env.secrets"))
+        self.config = Config()
+        for config_file in config_files:
+            if os.path.isfile(config_file):
+                self.config.file_values.update(self.config._read_file(config_file))
 
     def setup_precomputation(self, precomp_package):
         self.precomputation = Precomputation(precomp_package)
