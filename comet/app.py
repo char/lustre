@@ -3,12 +3,12 @@ import os.path
 from starlette.applications import Starlette, BaseHTTPMiddleware
 from starlette.staticfiles import StaticFiles
 from starlette.middleware import Middleware
-from starlette.config import Config
 
 from .global_state import GlobalStateMiddleware
 from .minification import install_html_minification_hooks
 from .precomputation import Precomputation
 from .templating import register_template_global
+from .config import Config
 
 
 class Comet(Starlette):
