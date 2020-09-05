@@ -21,9 +21,24 @@ class Precomputation:  # TODO: Can we think of a better name for this?
     def __call__(self, *args, **kwargs) -> Markup:
         return Markup(self.get(*args, **kwargs))
 
-    def get(self, processor: str, *args, **kwargs) -> typing.Any:
-        identifier = processor + repr(args)
+    def _generate_identifier(self, name: str, *args, **kwargs):
+        yield name
+        yield "("
 
+        if args:
+            yield repr(args)[1:-2]
+
+        if args and kwargs:
+            yield ", "
+
+        if kwargs:
+            yield "**"
+            yield repr(kwargs)
+
+        yield ")"
+
+    def get(self, processor: str, *args, **kwargs) -> typing.Any:
+        identifier = "".join(self._generate_identifier(processor, *args, **kwargs))
         if identifier in self.cache:
             return self.cache.get(identifier)
 
