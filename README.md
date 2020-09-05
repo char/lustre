@@ -10,7 +10,7 @@ Using Comet will mainly entail:
 
 ## Database Backends
 
-Since we use encode's [`databases` module](https://encode.io/databases/), we support several database backends, but you will need to install the backing package separately:
+Since we use encode's [`databases` module](https://www.encode.io/databases/), we support several database backends, but you will need to install the backing package separately:
 
 - [SQLite](https://www.sqlite.org/), via `aiosqlite`.
 - [PostgreSQL](https://www.postgresql.org/), via `aiopg`.
