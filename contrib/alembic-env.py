@@ -21,7 +21,7 @@ fileConfig(context.config.config_file_name)
 # Application
 # ===========
 
-from comet.ext.alembic import setup_alembic
+from lustre.ext.alembic import setup_alembic
 from my_webapp import app
 
 setup_alembic(app, context)

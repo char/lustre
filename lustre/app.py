@@ -13,7 +13,7 @@ from .precomputation import Precomputation
 from .minification import install_html_minification_hooks
 
 
-class Comet(Starlette):
+class Lustre(Starlette):
     def __init__(self, config_files=(".env", ".env.secrets")):
         super().__init__(middleware=[Middleware(GlobalStateMiddleware)])
 

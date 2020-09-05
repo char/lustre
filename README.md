@@ -1,8 +1,8 @@
-# Comet
+# Lustre
 
 An opinionated, "batteries included" ASGI web framework on top of [Starlette](https://www.starlette.io/) and the surrounding `encode.io` ecosystem.
 
-Using Comet will mainly entail:
+Using Lustre will mainly entail:
 
 - Writing `async` endpoint handlers.
 - Writing templates using [Jinja](https://jinja.palletsprojects.com/).

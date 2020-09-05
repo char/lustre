@@ -1,4 +1,4 @@
-from comet import Comet
+from lustre import Lustre
 from alembic import context
 
 
@@ -44,7 +44,7 @@ def run_migrations_online(context, target_metadata):
             context.run_migrations()
 
 
-def setup_alembic(app: Comet, context):
+def setup_alembic(app: Lustre, context):
     context.config.set_main_option("sqlalchemy.url", str(app.db.url))
 
     if context.is_offline_mode():

@@ -3,7 +3,7 @@ import typing
 from starlette.templating import Jinja2Templates
 from starlette.responses import Response
 
-from comet.global_state import current_request
+from lustre.global_state import current_request
 
 
 templating_engine = Jinja2Templates("templates")
