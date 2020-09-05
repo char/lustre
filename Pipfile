@@ -12,6 +12,7 @@ jinja2 = "*"
 aiofiles = "*"
 databases = "*"
 orm = "~=0.1"
+typesystem = "*"
 
 [requires]
 python_version = "3.8"
