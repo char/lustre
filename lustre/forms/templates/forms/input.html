@@ -1,0 +1,11 @@
+<div class="input-group">
+    <label for="{{ field_id }}">{{ label }}</label>
+    <input type="{{ input_type }}" id="{{ field_id }}" name="{{ field_name }}" {% if required %}required{% endif %} {% if value is not none %}value="{{ value }}" {% endif %}>
+
+    {% if field.description %}
+        <em class="field-description">{{ field.description }}</em>
+    {% endif %}
+    {% if error %}
+        <em class="field-error">{{ field.error }}</em>
+    {% endif %}
+</div>

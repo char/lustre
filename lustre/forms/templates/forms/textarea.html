@@ -1,0 +1,11 @@
+<div class="input-group">
+    <label for="{{ field_id }}">{{ label }}</label>
+    <textarea class="form-control {% if error %}is-invalid{% endif %}" id="{{ field_id }}" name="{{ field_name }}" {% if required %}required{% endif %}>{% if value is not none %}{{ value }}{% endif %}</textarea>
+
+    {% if field.description %}
+        <em class="field-description">{{ field.description }}</em>
+    {% endif %}
+    {% if error %}
+        <em class="field-error">{{ field.error }}</em>
+    {% endif %}
+</div>
