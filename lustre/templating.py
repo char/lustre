@@ -51,6 +51,6 @@ def render_template(
         context = {}
     context.update({"request": current_request()})
 
-    return templating_engine.TemplateResponse(
+    return template_render_engine.TemplateResponse(
         template_name, context, status_code=status_code, **kwargs
     )

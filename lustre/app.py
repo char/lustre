@@ -6,7 +6,7 @@ from starlette.staticfiles import StaticFiles
 from starlette.middleware import Middleware
 
 from .global_state import GlobalStateMiddleware
-from .templating import register_template_global
+from .templating import set_template_global
 from .config import Config
 from .database import Database, DatabaseURL
 from .precomputation import Precomputation
@@ -27,7 +27,7 @@ class Lustre(Starlette):
 
     def setup_precomputation(self, precomp_package: str):
         self.precomputation = Precomputation(precomp_package)
-        register_template_global("precomp", self.precomputation)
+        set_template_global("precomp", self.precomputation)
 
     def setup_html_minification(self, **config):
         install_html_minification_hooks(**config)
