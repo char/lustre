@@ -8,7 +8,7 @@ with open(path.join(here, "README.md"), encoding="utf-8") as f:
 
 setup(
     name="lustre",
-    version="0.1.2",
+    version="0.1.3",
     description="An opinionated, batteries-included ASGI web framework",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -29,6 +29,8 @@ setup(
         "jinja2==2.11.2",
         "markupsafe==1.1.1; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
         "orm==0.1.5",
+        "python-multipart==0.0.5",
+        "six==1.15.0; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
         "sqlalchemy==1.3.19; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
         "starlette==0.13.8",
         "typesystem==0.2.4",

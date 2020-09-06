@@ -13,6 +13,7 @@ aiofiles = "*"
 databases = "*"
 orm = "~=0.1"
 typesystem = "*"
+python-multipart = "*"
 
 [requires]
 python_version = "3.8"
