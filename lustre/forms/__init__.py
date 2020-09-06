@@ -1,5 +1,3 @@
-# Container module for typesystem's form templates
-
 from typesystem import Jinja2Forms, Schema
 from typesystem import (
     Any,
