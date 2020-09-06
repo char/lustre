@@ -8,7 +8,7 @@ with open(path.join(here, "README.md"), encoding="utf-8") as f:
 
 setup(
     name="lustre",
-    version="0.1.1",
+    version="0.1.2",
     description="An opinionated, batteries-included ASGI web framework",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -20,7 +20,8 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3.6",
     ],
-    packages=["lustre"],
+    packages=find_packages(),
+    package_data={"lustre.forms": ["templates/forms/*.html"]},
     python_requires=">=3.6, <4",
     install_requires=[
         "aiofiles==0.5.0",
