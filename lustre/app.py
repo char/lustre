@@ -11,7 +11,6 @@ from .config import Config
 from .database import Database, DatabaseURL
 from .precomputation import Precomputation
 from .minification import install_html_minification_hooks
-from .forms import Jinja2Forms
 
 
 class Lustre(Starlette):
@@ -22,8 +21,6 @@ class Lustre(Starlette):
         for config_file in config_files:
             if os.path.isfile(config_file):
                 self.config.file_values.update(self.config._read_file(config_file))
-
-        self.forms = Jinja2Forms(package="lustre.forms")
 
     def setup_database(self, database_url: typing.Union[str, DatabaseURL]):
         self.db = Database(database_url)

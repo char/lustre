@@ -1,12 +1,19 @@
 import typing
 
-from starlette.templating import Jinja2Templates
+from starlette.templating import Jinja2Templates as StarletteTemplates
 from starlette.responses import Response
+
+from jinja2 import ChoiceLoader, FileSystemLoader, PackageLoader
 
 from lustre.global_state import current_request
 
-
-templating_engine = Jinja2Templates("templates")
+template_render_engine = StarletteTemplates("templates")
+template_render_engine.env.loader = ChoiceLoader(
+    [
+        FileSystemLoader("templates"),
+        PackageLoader("lustre.forms", "templates"),
+    ]
+)
 
 
 def template_filter(name: str):
@@ -21,14 +28,14 @@ def template_filter(name: str):
     """
 
     def decorator(func):
-        templating_engine.env.filters[name] = func
+        template_render_engine.env.filters[name] = func
         return func
 
     return decorator
 
 
-def register_template_global(name: str, value: typing.Any):
-    templating_engine.env.globals[name] = value
+def set_template_global(name: str, value: typing.Any):
+    template_render_engine.env.globals[name] = value
 
 
 def render_template(
