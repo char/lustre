@@ -14,6 +14,7 @@ databases = "*"
 orm = "~=0.1"
 typesystem = "*"
 python-multipart = "*"
+itsdangerous = "*"
 
 [requires]
 python_version = "3.8"
