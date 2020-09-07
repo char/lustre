@@ -9,7 +9,7 @@ except ImportError:
     htmlmin = None
 
 
-def install_html_minification_hooks(
+def setup_html_minification(
     response_classes=[HTMLResponse, _TemplateResponse], **minification_config
 ):
     assert htmlmin is not None, "htmlmin must be installed to use HTML minification"

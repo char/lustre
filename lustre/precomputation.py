@@ -50,3 +50,12 @@ class Precomputation:  # TODO: Can we think of a better name for this?
             return result
         except ModuleNotFoundError:
             return None
+
+
+class PrecomputationAppMixin:
+    def __init__(self):
+        self.precomputation = None
+
+    def setup_precomputation(self, precomp_package: str):
+        self.precomputation = Precomputation(precomp_package)
+        set_template_global("precomp", self.precomputation)

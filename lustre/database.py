@@ -37,3 +37,11 @@ class Database:
             __abstract__ = True
 
         self.Model = DatabaseModel
+
+
+class DatabaseAppMixin:
+    def __init__(self):
+        pass
+
+    def setup_database(self, database_url: typing.Union[str, DatabaseURL]):
+        self.db = Database(database_url)
