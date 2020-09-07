@@ -38,6 +38,14 @@ def set_template_global(name: str, value: typing.Any):
     template_render_engine.env.globals[name] = value
 
 
+def template_global(name: str):
+    def decorator(func):
+        set_template_global(name, func)
+        return func
+
+    return decorator
+
+
 def render_template(
     template_name: str, context: dict = None, status_code: int = 200, **kwargs
 ) -> Response:
