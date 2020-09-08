@@ -28,7 +28,7 @@ class Lustre(
         ConfigAppMixin.__init__(self, config_files)
         DatabaseAppMixin.__init__(self)
         PrecomputationAppMixin.__init__(self)
-        SessionAppMixin.__inir__(self)
+        SessionAppMixin.__init__(self)
         AuthAppMixin.__init__(self)
         FormsAppMixin.__init__(self)
 

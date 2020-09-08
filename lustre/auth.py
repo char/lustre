@@ -47,11 +47,15 @@ class AuthUser(BaseUser):
 
 class LustreAuthBackend(AuthenticationBackend):
     def __init__(self, user_type: typing.Type[AuthUser]):
-        assert issubclass(user_type, AuthUser), f"{user_type.__name__} is not an AuthUser!""
+        assert issubclass(
+            user_type, AuthUser
+        ), f"{user_type.__name__} is not an AuthUser!"
         self.user_type = user_type
 
     def log_in(self, user: AuthUser):
-        assert isinstance(auth_obj, self.user_type), f"The given user is not a(n) {self.user_type.__name__}"
+        assert isinstance(
+            auth_obj, self.user_type
+        ), f"The given user is not a(n) {self.user_type.__name__}"
         current_request().session["lustre_auth_token"] = user.to_token()
 
     def log_out(self):
@@ -66,7 +70,7 @@ class LustreAuthBackend(AuthenticationBackend):
         if auth_token := request.session.get("lustre_auth_token"):
             return (
                 AuthCredentials(["authenticated"]),
-                self.get_auth_object(auth_token)
+                self.get_auth_object(auth_token),
             )
 
 
@@ -74,4 +78,4 @@ class AuthAppMixin:
     def setup_auth(self, user_type: typing.Type[AuthUser]):
         self.auth = LustreAuthBackend(user_type)
         self.append_middleware(AuthenticationMiddleware, backend=self.auth)
-        return user_type # Return the user type so that we can use @app.setup_auth as a decorator
+        return user_type  # Return the user type so that we can use @app.setup_auth as a decorator
