@@ -11,6 +11,8 @@ from .database import DatabaseAppMixin
 from .precomputation import PrecomputationAppMixin
 from .sessions import SessionAppMixin
 from .auth import AuthAppMixin
+from .forms import FormsAppMixin
+
 
 class Lustre(
     Starlette,
@@ -19,6 +21,7 @@ class Lustre(
     PrecomputationAppMixin,
     SessionAppMixin,
     AuthAppMixin,
+    FormsAppMixin,
 ):
     def __init__(self, config_files=(".env", ".env.secrets")):
         Starlette.__init__(self, middleware=[Middleware(GlobalStateMiddleware)])
@@ -27,6 +30,7 @@ class Lustre(
         PrecomputationAppMixin.__init__(self)
         SessionAppMixin.__inir__(self)
         AuthAppMixin.__init__(self)
+        FormsAppMixin.__init__(self)
 
     def append_middleware(self, middleware_class: type, **options: typing.Any) -> None:
         self.user_middleware.append(Middleware(middleware_class, **options))
