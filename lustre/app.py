@@ -9,14 +9,15 @@ from .global_state import GlobalStateMiddleware
 from .config import ConfigAppMixin
 from .database import DatabaseAppMixin
 from .precomputation import PrecomputationAppMixin
+from .sessions import SessionAppMixin
 from .auth import AuthAppMixin
-
 
 class Lustre(
     Starlette,
     ConfigAppMixin,
     DatabaseAppMixin,
     PrecomputationAppMixin,
+    SessionAppMixin,
     AuthAppMixin,
 ):
     def __init__(self, config_files=(".env", ".env.secrets")):
@@ -24,6 +25,7 @@ class Lustre(
         ConfigAppMixin.__init__(self, config_files)
         DatabaseAppMixin.__init__(self)
         PrecomputationAppMixin.__init__(self)
+        SessionAppMixin.__inir__(self)
         AuthAppMixin.__init__(self)
 
     def append_middleware(self, middleware_class: type, **options: typing.Any) -> None:
