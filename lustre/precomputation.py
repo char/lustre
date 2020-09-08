@@ -3,6 +3,8 @@ import importlib, importlib.resources
 
 from markupsafe import Markup
 
+from .templating import set_template_global
+
 
 class Precomputation:  # TODO: Can we think of a better name for this?
     def __init__(self, precomputation_package: str):
