@@ -20,5 +20,6 @@ Since we use encode's [`databases` module](https://www.encode.io/databases/), we
 
 ## Roadmap
 
+- **Automated tests**
 - Proper, nice, logging support
 - Potentially support 'freezing' a site into a static bundle - Pre-render templates, turn redirects into nginx configuration, et cetera.
