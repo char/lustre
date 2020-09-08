@@ -1,0 +1,28 @@
+{% set title = "Microblogging" %}
+{% set description = "A Twitter clone as an example web application built with Lustre." %}
+{% set override_title = true %}
+
+{% extends "_base.html.j2" %}
+
+{% block content %}
+  <main>
+    <header>
+      <h1>{{ title }}</h1>
+      <p>{{ description }}</p>
+    </header>
+
+    {% if not request.user.is_authenticated %}
+      <p>In order to see the latest posts, please <a href="/login/">sign in</a> or <a href="/register/">register</a>.</p>
+    {% else %}
+      <form class="submission-box" method="POST" action="/send_post">
+        <a class="user-link" href="/@{{ request.user.display_name }}">@{{ request.user.display_name }}</a>
+        <textarea name="content" placeholder="What do you want to say?"></textarea>
+        <input type="submit" value="Send">
+      </form>
+
+      {% for post in posts %}
+        {% include "_post.html.j2" %}
+      {% endfor %}
+    {% endif %}
+  </main>
+{% endblock %}

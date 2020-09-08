@@ -1,0 +1,27 @@
+{% set title = "Log out" %}
+{% set description = "Log out from the microblogging service." %}
+{% extends "_base.html.j2" %}
+
+{% block content %}
+  <main>
+    <header>
+      <h1>{{ title }}</h1>
+    </header>
+
+    <form id="logout-form" action="/logout" method="POST">
+      <input type="submit" value="Log out">
+    </form>
+
+    <script>
+      function submitForm() {
+        document.getElementById("logout-form").submit();
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", submitForm);
+      } else {
+        submitForm();
+      }
+    </script>
+  </main>
+{% endblock %}

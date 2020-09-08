@@ -1,0 +1,18 @@
+{% set title = "Posts by @" + username %}
+{% set description = username + "'s feed" %}
+{% set override_title = true %}
+
+{% extends "_base.html.j2" %}
+
+{% block content %}
+  <main>
+    <header>
+      <h1>Posts by <small><a class="user-link" href="/@{{ username }}">@{{ username }}</a></small></h1>
+    </header>
+
+
+    {% for post in posts %}
+      {% include "_post.html.j2" %}
+    {% endfor %}
+  </main>
+{% endblock %}

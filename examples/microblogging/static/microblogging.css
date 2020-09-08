@@ -1,0 +1,127 @@
+html {
+  background: white;
+  color: black;
+}
+
+html,
+textarea,
+.post-content {
+  color: black;
+  font-family: sans-serif;
+}
+
+a {
+  color: #19d;
+}
+
+body {
+  max-width: 80ch;
+  margin: 0 auto;
+  padding: 0 2em;
+}
+
+nav {
+  margin-top: 1em;
+}
+
+nav a+a {
+  padding: 0.5em;
+}
+
+header {
+  margin-bottom: 2em;
+  border-bottom: 1px solid black;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5em 0;
+}
+
+.field-error {
+  color: #c11;
+  margin-top: 0.25em;
+  font-size: 0.85em;
+}
+
+.submission-box {
+  margin-bottom: 2em;
+  display: flex;
+  flex-direction: column;
+}
+
+.submission-box textarea {
+  margin: 0.25em 0;
+  padding: 0.5em;
+  border: 1px solid #dadada;
+
+  min-height: 75px;
+
+  resize: none;
+  overflow: hidden;
+  overflow-y: scroll;
+
+  word-wrap: break-word;
+
+  font-size: 1.2em;
+}
+
+.user-link {
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.user-link:hover {
+  text-decoration: underline;
+}
+
+article {
+  background: rgb(194, 226, 255);
+  padding: 1em;
+  border-radius: 1em;
+}
+
+article+article {
+  margin: 1em 0;
+}
+
+.post-content {
+  margin: 0;
+  margin-top: 0.5em;
+  white-space: pre-wrap;
+}
+
+#flashes {
+  display: block;
+  position: fixed;
+
+  right: 1em;
+  bottom: 1em;
+
+  margin: 0;
+  padding: 0;
+}
+
+.flash {
+  list-style: none;
+
+  padding: 1em;
+  border-radius: 6px;
+
+  background-color: #333;
+  color: #fff;
+}
+
+.flash+.flash {
+  margin-top: .5em;
+}
+
+.flash-failure {
+  background-color: #a33;
+}
+
+.flash-success {
+  background-color: #2b6;
+}

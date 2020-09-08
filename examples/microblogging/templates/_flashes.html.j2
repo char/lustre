@@ -1,0 +1,8 @@
+{% set flashes = get_flashes() %}
+{% if flashes %}
+  <ul id="flashes">
+    {% for category, message in flashes %}
+      <li class="flash flash-{{ category }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}

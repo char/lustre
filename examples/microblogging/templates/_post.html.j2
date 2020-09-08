@@ -1,0 +1,6 @@
+<article>
+  <a class="user-link" href="/@{{ post.author.username }}">@{{ post.author.username }}</a>
+  <span class="post-date">{{ post.post_time.strftime("%H:%M") }} ({{ post.post_time.day }} {{ post.post_time.strftime("%B, %Y") }})</span>
+
+  <pre class="post-content">{{ post.content }}</pre>
+</article>

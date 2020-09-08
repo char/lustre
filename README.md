@@ -8,6 +8,8 @@ Using Lustre will mainly entail:
 - Writing templates using [Jinja](https://jinja.palletsprojects.com/).
 - Accessing the database via encode's [`orm` module](https://github.com/encode/orm).
 
+Check out [the microblog example](./examples/microblogging/) to see how an application built with Lustre might work.
+
 ## Database Backends
 
 Since we use encode's [`databases` module](https://www.encode.io/databases/), we support several database backends, but you will need to install the backing package separately:

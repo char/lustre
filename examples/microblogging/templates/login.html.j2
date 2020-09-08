@@ -1,0 +1,17 @@
+{% set title = "Sign in" %}
+{% set description = "Sign in to the microblogging service." %}
+{% extends "_base.html.j2" %}
+
+{% block content %}
+  <main>
+    <header>
+      <h1>{{ title }}</h1>
+      <p>Don't have an account? <a href="/register/">Register</a> instead.</p>
+    </header>
+
+    <form action="/login" method="POST">
+      {{ login_form }}
+      <input type="submit" value="Sign in">
+    </form>
+  </main>
+{% endblock %}
