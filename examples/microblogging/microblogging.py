@@ -208,12 +208,13 @@ class LoginForm(form.Schema):
     password = form.String(title="Password", format="password")
 
 
-# Lustre also
+# Lustre also supports automatically rendering forms into pages,
+# based on previous errors and given values.
 @app.form_renderer(LoginForm, "/login/")
-def login_form_renderer(request: Request, values: dict, errors: dict):
+def login_form_renderer(request: Request, rendered_form):
     return render_template(
         "login.html.j2",
-        {"login_form": render_form(LoginForm, values=values, errors=errors)},
+        {"login_form": rendered_form},
     )
 
 
@@ -225,13 +226,13 @@ async def login_form_handler(request: Request, login_form: LoginForm):
         user = await User.objects.get(username=login_form.username)
     except (orm.NoMatch, orm.MultipleMatches):
         flash("failure", "No matching user was found.")
+        # Returning 'None' from a form handler redirects back to the form renderer:
         return None
 
     password_bytes = login_form.password.encode("utf-8")
     password_hash_bytes = user.password_hash.encode("utf-8")
 
     if not checkpw(password_bytes, password_hash_bytes):
-        # Having a different message allows for user enumeration here, but it's okay.
         flash("failure", "The given password is incorrect.")
         return None
 
@@ -268,10 +269,10 @@ class RegisterForm(form.Schema):
 
 
 @app.form_renderer(RegisterForm, "/register/")
-def register_form(request: Request, values: dict, errors: dict):
+def register_form(request: Request, rendered_form):
     return render_template(
         "register.html.j2",
-        {"register_form": render_form(RegisterForm, values=values, errors=errors)},
+        {"register_form": rendered_form},
     )
 
 

@@ -1,4 +1,5 @@
 import typing
+import asyncio
 import functools
 
 from ..templating import template_render_engine
@@ -39,20 +40,33 @@ class FormsAppMixin:
         self.form_renderer_cache = {}
 
     def form_renderer(self, form_type: typing.Type[Schema], path: str, *args, **kwargs):
+        def _render_form(request):
+            last_form_type = request.session.pop("last_form_type", None)
+            if last_form_type == form_type.__qualname__:
+                form_values = request.session.pop("last_form_values", None)
+                form_errors = request.session.pop("last_form_errors", None)
+            else:
+                form_values = None
+                form_errors = None
+
+            return render_form(form_type, values=form_values, errors=form_errors)
+
         def decorator(func):
             self.form_renderer_cache[form_type] = path
 
-            @functools.wraps(func)
-            def wrapper(request, *args, **kwargs):
-                last_form_type = request.session.pop("last_form_type", None)
-                if last_form_type == form_type.__qualname__:
-                    form_values = request.session.pop("last_form_values", None)
-                    form_errors = request.session.pop("last_form_errors", None)
-                else:
-                    form_values = None
-                    form_errors = None
+            if asyncio.iscoroutinefunction(func):
 
-                return func(request, form_values, form_errors, *args, **kwargs)
+                @functools.wraps(func)
+                async def wrapper(request, *args, **kwargs):
+                    form = _render_form(request)
+                    return await func(request, form, *args, **kwargs)
+
+            else:
+
+                @functools.wraps(func)
+                def wrapper(request, *args, **kwargs):
+                    form = _render_form(request)
+                    return func(request, form, *args, **kwargs)
 
             return self.route(path, *args, **kwargs)(wrapper)
 
@@ -60,6 +74,10 @@ class FormsAppMixin:
 
     def form_handler(self, form_type: typing.Type[Schema], path: str, *args, **kwargs):
         def decorator(func):
+            assert asyncio.iscoroutinefunction(
+                func
+            ), "Form handlers must be asynchronous!"
+
             @functools.wraps(func)
             async def wrapper(request, *args, **kwargs):
                 request.session.pop("last_form_values", None)
