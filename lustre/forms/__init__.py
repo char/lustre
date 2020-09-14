@@ -100,7 +100,11 @@ class FormsAppMixin:
                 assert (
                     form_type in self.form_renderer_cache
                 ), f"No renderer for '{form_type.__name__}'"
-                return redirect(self.form_renderer_cache[form_type])
+
+                renderer_path = self.form_renderer_cache[form_type]
+                renderer_path = renderer_path.format(**request.path_params)
+
+                return redirect(renderer_path)
 
             return self.route(path, *args, **kwargs)(wrapper)
 
