@@ -52,14 +52,21 @@ class LustreAuthBackend(AuthenticationBackend):
         ), f"{user_type.__name__} is not an AuthUser!"
         self.user_type = user_type
 
-    def log_in(self, user: AuthUser):
+    def log_in(self, user: AuthUser, request=None):
         assert isinstance(
             user, self.user_type
         ), f"The given user is not a(n) {self.user_type.__name__}"
-        current_request().session["lustre_auth_token"] = user.to_token()
 
-    def log_out(self):
-        session = current_request().session
+        if not request:
+            request = current_request()
+
+        request.session["lustre_auth_token"] = user.to_token()
+
+    def log_out(self, request=None):
+        if not request:
+            request = current_request()
+
+        session = request.session
         if "lustre_auth_token" in session:
             del session["lustre_auth_token"]
 
@@ -68,9 +75,15 @@ class LustreAuthBackend(AuthenticationBackend):
 
     async def authenticate(self, request):
         if auth_token := request.session.get("lustre_auth_token"):
+            try:
+                user = self.create_user(auth_token)
+            except:
+                self.log_out()
+                return None
+
             return (
                 AuthCredentials(["authenticated"]),
-                self.create_user(auth_token),
+                user,
             )
 
 

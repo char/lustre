@@ -87,12 +87,15 @@ class FormsAppMixin:
 
                 try:
                     parsed_form = form_type.validate(await request.form())
+                except ValidationError as errors:
+                    parsed_form = None
+                    request.session["last_form_errors"] = dict(errors)
+                    request.session["last_form_values"] = dict(await request.form())
+
+                if parsed_form is not None:
                     response = await func(request, parsed_form, *args, **kwargs)
                     if response is not None:
                         return response
-                except ValidationError as errors:
-                    request.session["last_form_errors"] = dict(errors)
-                    request.session["last_form_values"] = dict(await request.form())
 
                 assert (
                     form_type in self.form_renderer_cache
