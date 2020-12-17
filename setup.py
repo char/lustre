@@ -12,7 +12,7 @@ setup(
     description="An opinionated, batteries-included ASGI web framework",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/half-cambodian-hacker-man/lustre/",
+    url="https://github.com/videogame-hacker/lustre/",
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
@@ -39,6 +39,6 @@ setup(
     extras_require={},
     dependency_links=[],
     project_urls={
-        "Source": "https://github.com/half-cambodian-hacker-man/lustre/",
+        "Source": "https://github.com/videogame-hacker/lustre/",
     },
 )
